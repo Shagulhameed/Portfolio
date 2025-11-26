@@ -419,6 +419,20 @@ html[data-bs-theme="dark"] .nav-link-pill.active {
   }
 }
 
+.btn-gradient {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  color: #fff !important;
+  border: none;
+  padding: 6px 14px !important;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+
 
 /* ================== HERO SECTION ================== */
 
@@ -654,7 +668,7 @@ html[data-bs-theme="dark"] .hero-pill-secondary {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   margin-top: 1.6rem;
   padding: 0.65rem 1.7rem;
   border-radius: 999px;
@@ -738,6 +752,9 @@ html[data-bs-theme="dark"] .hero-pill-secondary {
   margin-top: 0.4rem;
   font-size: 0.75rem;
   opacity: 0.7;
+}
+.d-flex.gap-3 {
+  flex-wrap: wrap; /* keeps responsive */
 }
 
 /* Dark-mode slight tweak if you want */
@@ -1513,6 +1530,47 @@ html[data-bs-theme="dark"] .blog-strip-line::after {
     transparent
   );
 }
+
+//cover letter
+.cl-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.cl-modal {
+  background: #0b1220;
+  color: #e5e7eb;
+  border-radius: 18px;
+  padding: 1.6rem 1.9rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+.cl-modal h5 {
+  font-weight: 600;
+}
+
+.cl-modal .form-control {
+  background: #020617;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  color: #e5e7eb;
+  padding: 0.55rem 0.9rem;
+}
+
+.cl-modal .form-control:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+}
+
+
 
 /* ===== Improved Footer ===== */
 

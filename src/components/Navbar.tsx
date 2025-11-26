@@ -14,6 +14,8 @@ export default function Navbar() {
   const [istTime, setIstTime] = useState("");
   const [userTime, setUserTime] = useState("");
   const [userZoneId, setUserZoneId] = useState("");
+   const [isAdmin, setIsAdmin] = useState(false);  
+  
 
   // helper to build link class
   const linkClass = (href: string) =>
@@ -79,6 +81,41 @@ export default function Navbar() {
 
   const toggleTheme = () =>
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
+
+// ---- check admin status from server ----
+// inside Navbar component
+useEffect(() => {
+  let cancelled = false;
+
+  const checkAdmin = async () => {
+    try {
+      const res = await fetch("/api/admin-status", { method: "GET" });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!cancelled) {
+        setIsAdmin(!!data.isAdmin);
+      }
+    } catch (e) {
+      console.warn("Failed to check admin status", e);
+    }
+  };
+
+  checkAdmin();
+}, [pathname]);   // re-run after navigation
+
+
+
+const handleLogout = async () => {
+  try {
+    await fetch("/api/admin-logout", { method: "POST" });
+  } catch (e) {
+    console.warn("Logout failed", e);
+  }
+
+  setIsAdmin(false);        // update UI immediately
+  window.location.href = "/"; // force full reload (status will be false)
+};
+
 
   return (
     <motion.nav
@@ -173,6 +210,30 @@ export default function Navbar() {
             <span>{theme === "dark" ? "🌙" : "☀️"}</span>
             <span>{theme === "dark" ? "Dark" : "Light"}</span>
           </button>
+        {/* 👇 ONLY login + logout here */}
+     {!isAdmin ? (
+  <Link href="/admin-login">
+    <button className="btn btn-sm btn-outline-secondary theme-toggle-btn">
+      🔐 Login
+    </button>
+  </Link>
+) : (
+  <>
+    {/* <Link href="/dashboard">
+      <button className="btn btn-primary btn-sm fw-semibold">
+        Dashboard
+      </button>
+    </Link> */}
+    <button
+      className="btn btn-outline-danger btn-sm fw-semibold"
+      onClick={handleLogout}
+    >
+      Logout
+    </button>
+  </>
+)}
+
+
         </div>
       </div>
     </motion.nav>

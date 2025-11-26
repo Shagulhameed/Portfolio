@@ -4,6 +4,7 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import CoverLetterDownload from "@/components/CoverLetterDownload";
 
 const Hero = () => {
   const mouseX = useMotionValue(0);
@@ -125,11 +126,17 @@ const Hero = () => {
     });
   }, [isClient, isMobile, viewport]);
 
-  const floatingWords = [
-    "Code • Design • Ship",
-    "Pixel-perfect UI",
-    "Enterprise-ready APIs",
-  ];
+const floatingWords = [
+  "Docker • AWS Cloud",
+  "Red Hat Linux • Windows",
+  "XAMPP • Nginx",
+  "React • Angular • Node.js",
+  "Tableau • MongoDB",
+  "Photoshop • Illustrator",
+  "Figma • Adobe XD",
+  "UX/UI • Branding Design"
+];
+
 
   return (
     <section className="hero-section position-relative overflow-hidden">
@@ -256,10 +263,10 @@ const Hero = () => {
           {/* Top pills */}
           <div className="d-flex flex-wrap justify-content-center gap-2 mb-3">
             <span className="badge hero-pill hero-pill-primary">
-              👨‍💻 Senior Full Stack Developer
+              👨‍💻 Full Stack • Cloud • UI/UX & Branding Design
             </span>
             <span className="badge hero-pill hero-pill-secondary">
-              🔓 Open to Remote &amp; Hybrid Roles
+              🌎 Open to international relocation – USA, Singapore, UAE, Kuwait, Europe, etc.,
             </span>
           </div>
 
@@ -278,27 +285,35 @@ const Hero = () => {
           </h4>
 
           <p className="lead mb-0 hero-subtext">
-            5+ years of experience building modern, scalable web applications
+            5+ years of experience delivering modern, scalable and high-performance enterprise web applications
           </p>
 
-          {/* Resume button */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-3"
-          >
-            <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-              <button type="button" className="btn-resume">
-                <span className="btn-resume-icon">📄</span>
-                <span>Download Resume</span>
-              </button>
-            </Link>
+          {/* Resume + Cover Letter buttons */}
+<motion.div
+  initial={{ opacity: 0, y: 8 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.3 }}
+  className="mt-3 d-flex justify-content-center align-items-center gap-4 flex-wrap"
+>
+  {/* Resume Button + Hint */}
+  <div className="text-center">
+    <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+      <button type="button" className="btn-resume">
+        <span className="btn-resume-icon">📄</span>
+        <span>Download Resume</span>
+      </button>
+    </Link>
+    <div className="btn-resume-hint mt-1">PDF · 1–2 pages · Updated</div>
+  </div>
 
-            <span className="btn-resume-hint">
-              PDF · 1–2 pages · Updated
-            </span>
-          </motion.div>
+  {/* Cover Letter Button + Hint */}
+  <div className="text-center">
+    <CoverLetterDownload />
+    <div className="btn-resume-hint mt-1">PDF · 1 page · Updated</div>
+  </div>
+</motion.div>
+
+
         </motion.div>
       </motion.div>
     </section>

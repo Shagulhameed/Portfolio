@@ -6,6 +6,8 @@ import "@/styles/globals.scss";
 import Navbar from "@/components/Navbar";
 import Script from "next/script";
 import Footer from "@/components/Footer";
+import "@/styles/admin/dashboard.scss";
+
 
 export const metadata = {
   title: "My Portfolio",
