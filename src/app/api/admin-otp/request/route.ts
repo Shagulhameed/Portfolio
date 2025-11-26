@@ -1,30 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { NextResponse, NextRequest } from "next/server";
+import { resend } from "@/lib/resend";
 
 export async function POST(req: NextRequest) {
-  const { email } = await req.json();
-
-  // only your admin email
-  if (!email || email !== process.env.ADMIN_EMAIL) {
-    return NextResponse.json({ error: "Not allowed" }, { status: 400 });
+  if (!process.env.RESEND_API_KEY) {
+    return NextResponse.json(
+      { error: "Email service not configured" },
+      { status: 500 }
+    );
   }
 
-  const code = Math.floor(100000 + Math.random() * 900000).toString();
-  const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 min
-
-  await prisma.adminOtp.create({
-    data: { email, code, expiresAt },
-  });
+  const { email } = await req.json();
 
   await resend.emails.send({
-    from: "Admin Login <noreply@shagulhameed.site>", // verified sender
+    from: "admin@shagulhameed.site",
     to: email,
-    subject: "Your admin login code",
-    text: `Your login code is ${code}. It will expire in 5 minutes.`,
+    subject: "OTP Verification",
+    html: "<p>Your OTP is: 123456</p>",
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ success: true });
 }
