@@ -17,6 +17,17 @@ I am based in Chennai, Tamil Nadu, India, and am open to relocation and visa spo
 `;
 }
 
+/**
+ * Text version used by the public preview page
+ */
+export function buildCoverLetterBody(company: string): string {
+  const safeCompany = company.trim() || "your company";
+  return buildBody(safeCompany);
+}
+
+/**
+ * PDF generator used by the /api/cover-letter/[token] route
+ */
 export async function generateCoverLetterPdf(
   company: string,
   yearsExperience: string = DEFAULT_YEARS_EXPERIENCE
@@ -153,7 +164,7 @@ export async function generateCoverLetterPdf(
     const trimmed = para.trim();
     if (!trimmed) return;
     const lines = doc.splitTextToSize(trimmed, maxWidth);
-    lines.forEach((line) => {
+  lines.forEach((line: string) => {
       if (cursorY > pageHeight - margin - 120) return;
       doc.text(line, margin, cursorY);
       cursorY += 16;

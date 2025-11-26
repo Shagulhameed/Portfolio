@@ -176,7 +176,7 @@ export default function CoverLetterDownload() {
       const trimmed = para.trim();
       if (!trimmed) return;
       const lines = doc.splitTextToSize(trimmed, maxWidth);
-      lines.forEach((line) => {
+      lines.forEach((line: string) => {
         if (cursorY > pageHeight - margin - 120) return;
         doc.text(line, margin, cursorY);
         cursorY += 16;

@@ -34,6 +34,7 @@ export default async function PublicCoverLetterPage({ params }: Props) {
     );
   }
 
+  // ✅ string body for preview (NOT the PDF function)
   const body = buildCoverLetterBody(record.companyName);
 
   return (

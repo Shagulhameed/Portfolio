@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { prisma } from "@/prisma"; // We'll fix this if path differs
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {

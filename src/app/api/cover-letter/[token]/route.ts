@@ -4,51 +4,25 @@ import { generateCoverLetterPdf } from "@/lib/generateCoverLetterPdf";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { token: string } }
+  context: { params: Promise<{ token: string }> }
 ) {
-  try {
-    const token = params.token;
+  const { token } = await context.params;
 
-    const record = await prisma.coverToken.findUnique({
-      where: { token },
-    });
+  const record = await prisma.coverToken.findUnique({
+    where: { token },
+  });
 
-    if (!record) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 404 });
-    }
-
-    if (record.used) {
-      return NextResponse.json(
-        { error: "Link already used" },
-        { status: 403 }
-      );
-    }
-
-    if (record.expiresAt < new Date()) {
-      return NextResponse.json({ error: "Link expired" }, { status: 410 });
-    }
-
-    // Mark token as used (one-time link)
-    await prisma.coverToken.update({
-      where: { token },
-      data: { used: true },
-    });
-
-    // Generate the PDF for this company
-    const pdfBuffer = await generateCoverLetterPdf(record.companyName);
-
-    return new NextResponse(pdfBuffer, {
-      status: 200,
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="Cover-Letter-${record.companyName}.pdf"`,
-      },
-    });
-  } catch (err) {
-    console.error("Cover letter download error:", err);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+  if (!record) {
+    return new NextResponse("Cover letter not found", { status: 404 });
   }
+
+  const pdf = await generateCoverLetterPdf(record.companyName);
+
+  return new NextResponse(pdf, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="cover-letter-${token}.pdf"`,
+    },
+  });
 }
