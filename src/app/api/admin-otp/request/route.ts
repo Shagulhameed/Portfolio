@@ -1,46 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { resend } from "@/lib/resend";
 
 export async function POST(req: NextRequest) {
-  const { email, code } = await req.json();
+  const { email } = await req.json();
 
-  const now = new Date();
-  const record = await prisma.adminOtp.findFirst({
-    where: { email, used: false, expiresAt: { gt: now } },
-    orderBy: { createdAt: "desc" },
-  });
-
-  if (!record || record.code !== code) {
-    return NextResponse.json(
-      { error: "Invalid or expired code" },
-      { status: 400 }
-    );
+  if (!email) {
+    return NextResponse.json({ error: "Email is required" }, { status: 400 });
   }
 
-  await prisma.adminOtp.update({
-    where: { id: record.id },
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+  // Invalidate previous OTP
+  await prisma.adminOtp.updateMany({
+    where: { email, used: false },
     data: { used: true },
   });
 
-  const res = NextResponse.json({ ok: true });
+  await prisma.adminOtp.create({ data: { email, code, expiresAt, used: false } });
 
-  // ✅ MAIN auth cookie
-  res.cookies.set("admin", "true", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",               // must match logout
-    maxAge: 60 * 60 * 4,     // 4 hours
-  });
+  // Send code to email
+  try {
+    await resend.emails.send({
+      from: "Admin <noreply@shagulhameed.site>", // verified domain
+      to: email,
+      subject: "Your Admin Login Code",
+      text: `Your admin OTP is ${code}. It expires in 5 minutes.`,
+    });
+  } catch (error) {
+    console.error("Email sending failed:", error);
+    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+  }
 
-  // ✅ email for profile / sidebar
-  res.cookies.set("adminEmail", email, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 4,
-  });
-
-  return res;
+  return NextResponse.json({ ok: true });
 }
