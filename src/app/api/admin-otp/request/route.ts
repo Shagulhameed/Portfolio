@@ -1,22 +1,46 @@
-import { NextResponse, NextRequest } from "next/server";
-import { resend } from "@/lib/resend";
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
-  if (!process.env.RESEND_API_KEY) {
+  const { email, code } = await req.json();
+
+  const now = new Date();
+  const record = await prisma.adminOtp.findFirst({
+    where: { email, used: false, expiresAt: { gt: now } },
+    orderBy: { createdAt: "desc" },
+  });
+
+  if (!record || record.code !== code) {
     return NextResponse.json(
-      { error: "Email service not configured" },
-      { status: 500 }
+      { error: "Invalid or expired code" },
+      { status: 400 }
     );
   }
 
-  const { email } = await req.json();
-
-  await resend.emails.send({
-    from: "admin@shagulhameed.site",
-    to: email,
-    subject: "OTP Verification",
-    html: "<p>Your OTP is: 123456</p>",
+  await prisma.adminOtp.update({
+    where: { id: record.id },
+    data: { used: true },
   });
 
-  return NextResponse.json({ success: true });
+  const res = NextResponse.json({ ok: true });
+
+  // ✅ MAIN auth cookie
+  res.cookies.set("admin", "true", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",               // must match logout
+    maxAge: 60 * 60 * 4,     // 4 hours
+  });
+
+  // ✅ email for profile / sidebar
+  res.cookies.set("adminEmail", email, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 4,
+  });
+
+  return res;
 }
