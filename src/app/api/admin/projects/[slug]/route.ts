@@ -13,11 +13,13 @@ function slugify(input: string) {
 // GET /api/admin/projects/[slug]
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await context.params;
+
     const project = await prisma.project.findUnique({
-      where: { slug: params.slug },
+      where: { slug },
     });
 
     if (!project) {
@@ -37,9 +39,10 @@ export async function GET(
 // PUT /api/admin/projects/[slug]  -> update existing
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug: currentSlug } = await context.params;
     const body = await req.json();
 
     if (!body.title || typeof body.title !== "string") {
@@ -66,7 +69,7 @@ export async function PUT(
     const newSlug = slugify(slug || title);
 
     const project = await prisma.project.update({
-      where: { slug: params.slug },
+      where: { slug: currentSlug },
       data: {
         slug: newSlug,
         title,
@@ -95,12 +98,15 @@ export async function PUT(
 // DELETE /api/admin/projects/[slug]
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await context.params;
+
     await prisma.project.delete({
-      where: { slug: params.slug },
+      where: { slug },
     });
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Error deleting project", err);

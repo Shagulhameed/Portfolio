@@ -135,13 +135,22 @@ function ProjectCard({ p }: ProjectCardProps) {
         <h3 className="h5 card-title mb-2">{p.title}</h3>
         <p className="card-text small text-muted">{p.description}</p>
 
-        <div className="mt-3 d-flex flex-wrap">
-          {(p.technology ? [p.technology] : [])
-            .concat((Array.isArray(p.highlights) ? p.highlights : []).slice(0, 2))
-            .map((h, i) => (
-              <Tag key={i}>{h}</Tag>
-            ))}
-        </div>
+<div className="mt-3 d-flex flex-wrap">
+  {(() => {
+    const techTags: string[] = p.technology ? [p.technology] : [];
+
+    const highlightTags: string[] = Array.isArray(p.highlights)
+      ? (p.highlights as unknown[])
+          .filter((h): h is string => typeof h === "string")
+          .slice(0, 2)
+      : [];
+
+    const tags = [...techTags, ...highlightTags];
+
+    return tags.map((h, i) => <Tag key={i}>{h}</Tag>);
+  })()}
+</div>
+
       </div>
     </article>
   );
