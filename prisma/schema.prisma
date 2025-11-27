@@ -34,3 +34,14 @@ model ContactMessage {
   message   String
   createdAt DateTime @default(now())
 }
+
+model AdminAccess {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("admin_access") // <- actual table name in DB
+}
+
