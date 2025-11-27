@@ -8,20 +8,18 @@ import { useEffect, useState } from "react";
 type Theme = "light" | "dark";
 
 export default function Navbar() {
-  const pathname = usePathname();            // 👈 current route
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [istTime, setIstTime] = useState("");
   const [userTime, setUserTime] = useState("");
   const [userZoneId, setUserZoneId] = useState("");
-   const [isAdmin, setIsAdmin] = useState(false);  
-  
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  // helper to build link class
   const linkClass = (href: string) =>
     `nav-link nav-link-pill ${pathname === href ? "active" : ""}`;
 
-  // ---- time + theme effects (your existing logic, shortened) ----
+  // time + zone
   useEffect(() => {
     const detectedZone =
       Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Kolkata";
@@ -60,10 +58,11 @@ export default function Navbar() {
     return () => clearInterval(timer);
   }, []);
 
+  // theme
   useEffect(() => {
-    const stored = window.localStorage.getItem(
-      "portfolio-theme"
-    ) as Theme | null;
+    const stored = window.localStorage.getItem("portfolio-theme") as
+      | Theme
+      | null;
     const initial: Theme =
       stored ||
       (window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -82,40 +81,37 @@ export default function Navbar() {
   const toggleTheme = () =>
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
-// ---- check admin status from server ----
-// inside Navbar component
-useEffect(() => {
-  let cancelled = false;
+  // admin status
+  useEffect(() => {
+    let cancelled = false;
 
-  const checkAdmin = async () => {
-    try {
-      const res = await fetch("/api/admin-status", { method: "GET" });
-      if (!res.ok) return;
-      const data = await res.json();
-      if (!cancelled) {
-        setIsAdmin(!!data.isAdmin);
+    const checkAdmin = async () => {
+      try {
+        const res = await fetch("/api/admin-status", { method: "GET" });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled) setIsAdmin(!!data.isAdmin);
+      } catch (e) {
+        console.warn("Failed to check admin status", e);
       }
+    };
+
+    checkAdmin();
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin-logout", { method: "POST" });
     } catch (e) {
-      console.warn("Failed to check admin status", e);
+      console.warn("Logout failed", e);
     }
+
+    setIsAdmin(false);
+    window.location.href = "/";
   };
-
-  checkAdmin();
-}, [pathname]);   // re-run after navigation
-
-
-
-const handleLogout = async () => {
-  try {
-    await fetch("/api/admin-logout", { method: "POST" });
-  } catch (e) {
-    console.warn("Logout failed", e);
-  }
-
-  setIsAdmin(false);        // update UI immediately
-  window.location.href = "/"; // force full reload (status will be false)
-};
-
 
   return (
     <motion.nav
@@ -125,12 +121,6 @@ const handleLogout = async () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="navbar-inner container d-flex align-items-center">
-        {/* LEFT label */}
-        {/* <div className="navbar-left d-none d-md-flex flex-column me-3">
-          <span className="navbar-meta">TIME ZONE</span>
-          <span className="fw-semibold">Asia/Kolkata (IST)</span>
-        </div> */}
-
         {/* mobile toggler */}
         <button
           className="navbar-toggler d-lg-none ms-1"
@@ -168,18 +158,29 @@ const handleLogout = async () => {
                 Contact
               </Link>
             </li>
-<li className="nav-item position-relative">
-  <Link href="/#blog" className="nav-link nav-link-pill">
-    BLOG
-  </Link>
-  <span className="coming-soon-label">COMING SOON</span>
-</li>
 
+            <li className="nav-item position-relative">
+              <Link href="/#blog" className="nav-link nav-link-pill">
+                BLOG
+              </Link>
+              <span className="coming-soon-label">COMING SOON</span>
+            </li>
 
+            {/* 👇 Admin dashboard link – after BLOG, only if logged in */}
+            {isAdmin && (
+              <li className="nav-item">
+                <Link
+                  href="/admin/dashboard"
+                  className={linkClass("/admin/dashboard")}
+                >
+                  Dashboard
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
 
-        {/* RIGHT – time + theme */}
+        {/* RIGHT – time + theme + login/logout */}
         <div className="navbar-right d-flex align-items-center gap-3 ms-auto">
           <div className="navbar-time navbar-time-desktop fw-semibold small">
             {userZoneId === "Asia/Kolkata" ? (
@@ -205,30 +206,22 @@ const handleLogout = async () => {
             <span>{theme === "dark" ? "🌙" : "☀️"}</span>
             <span>{theme === "dark" ? "Dark" : "Light"}</span>
           </button>
-        {/* 👇 ONLY login + logout here */}
-     {!isAdmin ? (
-  <Link href="/admin-login">
-    <button className="btn btn-sm btn-outline-secondary theme-toggle-btn">
-      🔐 Login
-    </button>
-  </Link>
-) : (
-  <>
-    {/* <Link href="/dashboard">
-      <button className="btn btn-primary btn-sm fw-semibold">
-        Dashboard
-      </button>
-    </Link> */}
-    <button
-      className="btn btn-outline-danger btn-sm fw-semibold"
-      onClick={handleLogout}
-    >
-      Logout
-    </button>
-  </>
-)}
 
-
+          {/* ONLY login / logout on the right */}
+          {!isAdmin ? (
+            <Link href="/admin/admin-login">
+              <button className="btn btn-sm btn-outline-secondary theme-toggle-btn">
+                🔐 Login
+              </button>
+            </Link>
+          ) : (
+            <button
+              className="btn btn-outline-danger btn-sm fw-semibold"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </motion.nav>

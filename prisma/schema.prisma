@@ -45,3 +45,22 @@ model AdminAccess {
   @@map("admin_access") // <- actual table name in DB
 }
 
+model Project {
+  id          Int      @id @default(autoincrement())
+  slug        String?  @unique
+  title       String
+  client      String?
+  type        String?
+  technology  String?
+  role        String?
+  image       String?
+  description String?
+  highlights  Json?
+  links       Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+  published   Boolean  @default(true)
+
+  @@map("projects") // maps model to "projects" table
+}
+

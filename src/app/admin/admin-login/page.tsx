@@ -11,9 +11,23 @@ export default function AdminOtpLogin() {
 
   const sendOtp = async () => {
     setError("");
+    setStatus("");
+
+    if (!email.trim()) {
+      setError("Please enter your email.");
+      return;
+    }
+
+    // simple email format check
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     setStatus("Sending code...");
 
-    const res = await fetch("/api/admin-otp/request", {
+    // 🔐 This API checks AdminAccess table on the server
+    const res = await fetch("/api/admin-login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
@@ -24,7 +38,13 @@ export default function AdminOtpLogin() {
       setStep("code");
     } else {
       const data = await res.json().catch(() => ({}));
-      setError(data.error || "Failed to send code");
+      // Backend returns 403 with error when email is not in AdminAccess
+      setError(
+        data.error ||
+          (res.status === 403
+            ? "This email is not authorized for admin access."
+            : "Failed to send code.")
+      );
       setStatus("");
     }
   };
@@ -41,7 +61,7 @@ export default function AdminOtpLogin() {
 
     if (res.ok) {
       setStatus("Login success. Redirecting...");
-      window.location.href = "/dashboard";
+      window.location.href = "/admin/dashboard";
     } else {
       const data = await res.json().catch(() => ({}));
       setError(data.error || "Invalid code");
@@ -52,7 +72,9 @@ export default function AdminOtpLogin() {
   return (
     <main className="container py-5 text-center" style={{ maxWidth: 480 }}>
       <h1 className="mb-2">Admin Login</h1>
-      <p className="text-muted mb-4">OTP will be sent only to your email.</p>
+      <p className="text-muted mb-4">
+        OTP will be sent only to authorized admin emails.
+      </p>
 
       {step === "email" && (
         <>
@@ -102,6 +124,7 @@ export default function AdminOtpLogin() {
             onClick={() => {
               setStep("email");
               setCode("");
+              setStatus("");
             }}
           >
             Change email

@@ -1,9 +1,8 @@
-// src/components/ProjectsPageClient.tsx
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import type { Project } from "@prisma/client"; // 👈 using Prisma type
+import type { Project } from "@/lib/projects"; // only the type now
 
 function getLanguagesFromTech(tech?: string | null): string[] {
   if (!tech) return [];
@@ -137,7 +136,7 @@ function ProjectCard({ p }: ProjectCardProps) {
 
         <div className="mt-3 d-flex flex-wrap">
           {(p.technology ? [p.technology] : [])
-            .concat((Array.isArray(p.highlights) ? p.highlights : []).slice(0, 2))
+            .concat(p.highlights?.slice(0, 2) ?? [])
             .map((h, i) => (
               <Tag key={i}>{h}</Tag>
             ))}
@@ -148,7 +147,6 @@ function ProjectCard({ p }: ProjectCardProps) {
 }
 
 /* ---------- Client page (grid + filters) ---------- */
-
 type ProjectsPageClientProps = {
   projects: Project[];
 };
@@ -231,9 +229,7 @@ export default function ProjectsPageClient({ projects }: ProjectsPageClientProps
               <div className="px-4 py-3">
                 {/* Category */}
                 <div className="mb-4">
-                  <div className="small fw-semibold mb-2">
-                    Choose a Category
-                  </div>
+                  <div className="small fw-semibold mb-2">Choose a Category</div>
 
                   <div className="d-flex flex-column gap-2">
                     {visibleTypes.map((t) => (

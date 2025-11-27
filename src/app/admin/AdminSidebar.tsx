@@ -49,20 +49,30 @@ export default function AdminSidebar() {
         </div>
       </div>
 
-      <nav className="sidebar-menu">
-        <Link href="/dashboard" className={itemClass("/dashboard")}>
-          🏠 Dashboard
-        </Link>
-        <Link href="/apply-admin" className={itemClass("/apply-admin")}>
-          📧 Send Applications
-        </Link>
-        <Link
-          href="/cover-letter-download"
-          className={itemClass("/cover-letter-download")}
-        >
-          📄 Cover Letters
-        </Link>
-      </nav>
+<nav className="sidebar-menu">
+  <Link href="/admin/dashboard" className={itemClass("/admin/dashboard")}>
+    🏠 Dashboard
+  </Link>
+  
+  <Link href="/admin/apply-admin" className={itemClass("/admin/apply-admin")}>
+    📧 Send Applications
+  </Link>
+
+  <Link
+    href="/admin/cover-letter-download"
+    className={itemClass("/admin/cover-letter-download")}
+  >
+    📄 Cover Letters
+  </Link>
+
+  <Link 
+    href="/admin/projects/" 
+    className={itemClass("/admin/projects/")}
+  >
+    📦 Project Upload
+  </Link>
+</nav>
+
     </aside>
   );
 }
