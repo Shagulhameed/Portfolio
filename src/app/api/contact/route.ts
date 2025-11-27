@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
-      reply_to: email,
+      replyTo: email, 
       subject: `[Portfolio] ${subject}`,
       html: `
         <h2>New contact message from portfolio</h2>
