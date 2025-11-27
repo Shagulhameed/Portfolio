@@ -1,11 +1,13 @@
 // src/components/Blog.tsx
 "use client";
 
-const Blog = () => {
+import React from "react";
+
+const Blog: React.FC = () => {
   return (
-<section className="blog-launch-section d-flex align-items-center">
-  <div className="container">
-    <div className="blog-launch-shell">
+    <section className="blog-launch-section d-flex align-items-center" id="blog">
+      <div className="container">
+        <div className="blog-launch-shell">
           <div className="blog-launch-card row g-4 align-items-center mx-auto">
             {/* LEFT: copy */}
             <div className="col-md-7">
@@ -24,9 +26,9 @@ const Blog = () => {
               <div className="d-flex flex-wrap gap-2 mb-3">
                 <span className="blog-chip">Real production case-studies</span>
                 <span className="blog-chip">
-                  Dashboard & data-heavy UI tips
+                  Dashboard &amp; data-heavy UI tips
                 </span>
-                <span className="blog-chip">Perf & DX improvements</span>
+                <span className="blog-chip">Perf &amp; DX improvements</span>
               </div>
 
               <div className="blog-notify-wrapper">
@@ -54,21 +56,16 @@ const Blog = () => {
                   <li>
                     <span className="dot" />
                     <div>
-                      <div className="label">
-                        01 · Frontend in production
-                      </div>
+                      <div className="label">01 · Frontend in production</div>
                       <div className="desc">
-                        Debug stories, performance wins, and what actually
-                        broke.
+                        Debug stories, performance wins, and what actually broke.
                       </div>
                     </div>
                   </li>
                   <li>
                     <span className="dot" />
                     <div>
-                      <div className="label">
-                        02 · Dashboards & complex UIs
-                      </div>
+                      <div className="label">02 · Dashboards &amp; complex UIs</div>
                       <div className="desc">
                         Patterns I use for tables, filters, charts and state.
                       </div>
@@ -77,7 +74,7 @@ const Blog = () => {
                   <li>
                     <span className="dot" />
                     <div>
-                      <div className="label">03 · Dev workflow & tooling</div>
+                      <div className="label">03 · Dev workflow &amp; tooling</div>
                       <div className="desc">
                         DX tricks: linting, testing, Git workflow, CI hints.
                       </div>
@@ -102,9 +99,9 @@ const Blog = () => {
         </div>
         {/* /blog-launch-shell */}
       </div>
-      {/* Glowing strip line */}
-<div className="blog-strip-line" />
 
+      {/* Glowing strip line */}
+      <div className="blog-strip-line" />
     </section>
   );
 };

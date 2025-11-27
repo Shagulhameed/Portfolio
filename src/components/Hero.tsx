@@ -261,14 +261,15 @@ const floatingWords = [
           className="hero-card position-relative p-4 rounded text-center shadow-lg"
         >
           {/* Top pills */}
-          <div className="d-flex flex-wrap justify-content-center gap-2 mb-3">
-            <span className="badge hero-pill hero-pill-primary">
-              👨‍💻 Full Stack • Cloud • UI/UX & Branding Design
-            </span>
-            <span className="badge hero-pill hero-pill-secondary">
-              🌎 Open to international relocation – USA, Singapore, UAE, Kuwait, Europe, etc.,
-            </span>
-          </div>
+<div className="d-flex flex-wrap justify-content-center gap-2 mb-3">
+  <span className="badge hero-pill hero-pill-primary">
+    👨‍💻 Full Stack • Cloud • DB Management • UI/UX
+  </span>
+
+  <span className="badge hero-pill hero-pill-secondary">
+    🌎 Open to global relocation (USA, SG, UAE, EU, etc.)
+  </span>
+</div>
 
           <Image
             src="/profile/pic-bg.png"
@@ -285,8 +286,11 @@ const floatingWords = [
           </h4>
 
           <p className="lead mb-0 hero-subtext">
-            5+ years of experience delivering modern, scalable and high-performance enterprise web applications
-          </p>
+  5+ years of experience delivering modern, scalable and high-performance enterprise web applications
+</p>
+{/* <p className="mb-0 mt-1 text-muted hero-subtext-db">
+  Strong in <strong>database design &amp; performance tuning</strong> – MySQL, MongoDB, Oracle &amp; PostgreSQL.
+</p> */}
 
           {/* Resume + Cover Letter buttons */}
 <motion.div
@@ -307,10 +311,10 @@ const floatingWords = [
   </div>
 
   {/* Cover Letter Button + Hint */}
-  <div className="text-center">
+  {/* <div className="text-center">
     <CoverLetterDownload />
     <div className="btn-resume-hint mt-1">PDF · 1 page · Updated</div>
-  </div>
+  </div> */}
 </motion.div>
 
 

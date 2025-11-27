@@ -125,9 +125,7 @@ export default function ContactPage() {
         <section className="col-lg-5">
           <h1 className="mb-3">Let’s work together</h1>
           <p className="lead mb-4">
-            I’m available for frontend / full-stack roles, freelance projects,
-            and long-term collaborations. Tell me a bit about your project or
-            role and I’ll get back to you as soon as possible.
+          I’m open to freelance development work and long-term collaborations. Tell me a little about your project or role, and I’ll respond as soon as possible.
           </p>
 
           <div className="card border-0 shadow-sm mb-3">
@@ -136,58 +134,80 @@ export default function ContactPage() {
               <ul className="list-unstyled small mb-0">
                 <li className="mb-2">
                   <span className="fw-semibold">Email:&nbsp;</span>
-                  <a href="mailto:shagulhameed@sandisk.com">
-                    shagulhameed@sandisk.com
+                  <a href="mailto:shagulhameed032@gmail.com">
+                    shagulhameed032@gmail.com
                   </a>
                 </li>
                 <li className="mb-2">
                   <span className="fw-semibold">Location:&nbsp;</span>
-                  Karaikal / Tamil Nadu, India
+                  Chennai / Tamil Nadu, India
                 </li>
-                <li className="mb-2">
+                {/* <li className="mb-2">
                   <span className="fw-semibold">Preferred roles:&nbsp;</span>
                   Frontend (Angular / React / Next.js), Full-stack (MERN / NestJS)
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
 
-          <div className="card border-0 shadow-sm">
-            <div className="card-body">
-              <h2 className="h6 text-uppercase text-muted mb-2">
-                Find me online
-              </h2>
-              <div className="d-flex flex-wrap gap-2">
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-outline-secondary btn-sm"
-                >
-                  <i className="fab fa-github me-1" />
-                  GitHub
-                </a>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-outline-secondary btn-sm"
-                >
-                  <i className="fab fa-linkedin me-1" />
-                  LinkedIn
-                </a>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-outline-secondary btn-sm"
-                >
-                  <i className="fas fa-globe me-1" />
-                  Portfolio
-                </a>
-              </div>
-            </div>
-          </div>
+        <div className="card border-0 shadow-sm">
+  <div className="card-body">
+    <h2 className="h6 text-uppercase text-muted mb-2">Find me online</h2>
+    <div className="d-flex flex-wrap gap-2">
+  <a
+    href="https://github.com/Shagulhameed"
+    target="_blank"
+    rel="noreferrer"
+    className="btn btn-sm social-btn github"
+  >
+    <i className="fab fa-github me-1" />
+    GitHub
+  </a>
+
+  <a
+    href="https://www.linkedin.com/in/shagul-hameed-3072b4b6/"
+    target="_blank"
+    rel="noreferrer"
+    className="btn btn-sm social-btn linkedin"
+  >
+    <i className="fab fa-linkedin me-1" />
+    LinkedIn
+  </a>
+
+  <a
+    href="https://shagulhameed.site/"
+    target="_blank"
+    rel="noreferrer"
+    className="btn btn-sm social-btn portfolio"
+  >
+    <i className="fas fa-globe me-1" />
+    Portfolio
+  </a>
+
+  <a
+    href="https://www.instagram.com/shah_asr_15?igsh=MW80ZWJ2OGZ4MHhtZA%3D%3D&utm_source=qr"
+    target="_blank"
+    rel="noreferrer"
+    className="btn btn-sm social-btn instagram"
+  >
+    <i className="fab fa-instagram me-1" />
+    Instagram
+  </a>
+
+  <a
+    href="https://www.facebook.com/shagul.hameed.7315?mibextid=wwXIfr"
+    target="_blank"
+    rel="noreferrer"
+    className="btn btn-sm social-btn facebook"
+  >
+    <i className="fab fa-facebook me-1" />
+    Facebook
+  </a>
+</div>
+
+  </div>
+</div>
+
         </section>
 
         {/* Right: contact form */}
@@ -198,8 +218,8 @@ export default function ContactPage() {
               <p className="small text-muted mb-4">
                 Fill in the form and I’ll reply by email. You can also contact
                 me directly at{" "}
-                <a href="mailto:shagulhameed@sandisk.com">
-                  shagulhameed@sandisk.com
+                <a href="mailto:shagul.hameed@sandisk.com">
+                  shagul.hameed@sandisk.com
                 </a>
                 .
               </p>

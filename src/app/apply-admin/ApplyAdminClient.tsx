@@ -80,7 +80,7 @@ export default function ApplyAdminClient() {
   };
 
   return (
-    <main className="container py-5">
+    <main className="py-5">
       <h1>Send Applications</h1>
       <p className="text-muted">
         Private admin page – don&apos;t link this in the main navbar.

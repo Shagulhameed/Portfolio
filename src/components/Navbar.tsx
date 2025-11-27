@@ -169,14 +169,9 @@ const handleLogout = async () => {
               </Link>
             </li>
 <li className="nav-item position-relative">
-  <a
-    href="#"
-    className={`nav-link nav-link-pill ${
-      pathname === "/about" ? "active" : ""
-    }`}
-  >
+  <Link href="/#blog" className="nav-link nav-link-pill">
     BLOG
-  </a>
+  </Link>
   <span className="coming-soon-label">COMING SOON</span>
 </li>
 

@@ -16,66 +16,102 @@ export default function About() {
             <span className="about-accent">polished</span> &{" "}
             <span className="about-accent">reliable</span>.
           </h2>
+<p className="about-body mb-4">
+  I’m <strong>Shagul Hameed</strong>, a <strong>Senior Full Stack Developer & Tech Lead</strong> at
+  <strong> Sixth Force Solutions</strong> with <strong>5+ years of experience</strong> delivering
+  modern, scalable enterprise applications using <strong>React, Angular, Node.js, Next.js & NestJS</strong> on
+  <strong> AWS</strong> and <strong>GCP</strong>.
+  <br /><br />
+  I hold a <strong>Master of Science in Software Engineering</strong> (First Class, Apr 2018) from
+  <strong> Periyar Maniammai Institute of Science & Technology</strong>, which laid the foundation for
+  my full-stack engineering journey.
+  <br /><br />
+  I lead end-to-end development of dashboards, micro-frontends, APIs and data-driven platforms—mentoring engineers and
+  collaborating with designers, product owners and stakeholders to deliver high-impact features. I’m passionate about
+  building <strong>high-performance, secure and maintainable</strong> applications with a focus on <strong>clean
+  architecture</strong>, <strong>CI/CD automation</strong>, <strong>developer experience (DX)</strong> and well-crafted
+  <strong> UI/UX</strong>.
+</p>
 
-          <p className="about-lead mb-3">
-            I’m Shagul Hameed, a Senior Full Stack Developer focused on crafting
-            modern, scalable web applications. I enjoy taking a product from{" "}
-            <strong>idea → design → production</strong>, working closely with
-            designers, product owners, and engineers.
-          </p>
+<p className="about-body mb-4">
+  I’m a <strong>results-driven engineer</strong> and strategic problem-solver experienced in working with cross-functional
+  teams across <strong>India, the US and Canada</strong>. My work emphasises <strong>performance, security, business
+  value and user experience</strong>. I also have expertise in <strong>cloud architecture, DevOps adoption and process
+  automation</strong>, enabling me to bridge the gap between <strong>technical execution</strong> and <strong>product
+  strategy</strong>. I continuously explore modern technologies, architecture patterns and best practices with a mindset
+  to innovate, elevate engineering standards and build impactful digital products.
+</p>
 
-          <p className="about-body mb-4">
-            Over the last few years I’ve worked across frontend and backend –
-            building dashboards, micro-frontends, APIs, reusable component
-            libraries and integrations. I care a lot about{" "}
-            <strong>DX (developer experience)</strong>, performance,
-            accessibility and clean architecture.
-          </p>
 
-          {/* mini “pill” row */}
-          <div className="about-pills mb-4">
-            <span className="about-pill">⚙️ Full Stack (React / Angular / Node)</span>
-            <span className="about-pill">📊 Dashboards & admin platforms</span>
-            <span className="about-pill">☁️ Cloud-ready, Docker & Kubernetes</span>
-          </div>
         </div>
 
         {/* RIGHT: quick stats */}
-        <aside className="about-aside">
-          <div className="about-card">
-            <h3 className="about-card-title">Snapshot</h3>
+<aside className="about-aside">
+  <div className="about-card">
+    <h3 className="about-card-title">Snapshot</h3>
 
-            <ul className="about-list mb-3">
-              <li>
-                <span>Experience</span>
-                <strong>5+ years</strong>
-              </li>
-              <li>
-                <span>Primary stack</span>
-                <strong>React, Angular, Node.js</strong>
-              </li>
-              <li>
-                <span>Databases</span>
-                <strong>MongoDB, MySQL</strong>
-              </li>
-              <li>
-                <span>Cloud & tools</span>
-                <strong>AWS, Docker, Kubernetes</strong>
-              </li>
-            </ul>
+<ul className="snapshot-list mb-3">
+  <li className="snapshot-row">
+    <p className="snapshot-label">Primary stack</p>
+    <p className="snapshot-value">
+      React · Angular · Node.js · Next.js · NestJS
+    </p>
+  </li>
 
-            <div className="about-divider" />
+  <li className="snapshot-row">
+    <p className="snapshot-label">Databases</p>
+    <p className="snapshot-value">
+      Oracle · PostgreSQL · MongoDB · MySQL
+    </p>
+  </li>
 
-            <h4 className="about-card-subtitle mb-2">What I’m good at</h4>
-            <ul className="about-tags">
-              <li>Design-systems & UI libraries</li>
-              <li>Complex forms & data-heavy screens</li>
-              <li>Micro-frontends & modular architecture</li>
-              <li>API design & integration</li>
-            </ul>
-          </div>
-        </aside>
+  <li className="snapshot-row">
+    <p className="snapshot-label">Cloud & DevOps</p>
+    <p className="snapshot-value">
+      AWS · GCP · Docker · Kubernetes · Red Hat
+    </p>
+  </li>
+
+  <li className="snapshot-row">
+    <p className="snapshot-label">Versioning & Pipeline</p>
+    <p className="snapshot-value">
+      GitHub · GitLab · CI/CD
+    </p>
+  </li>
+
+  <li className="snapshot-row">
+    <p className="snapshot-label">Secure API & Auth</p>
+    <p className="snapshot-value">
+      JWT · OAuth2 · RBAC
+    </p>
+  </li>
+</ul>
+
+    <div className="about-divider" />
+
+    <h4 className="about-card-subtitle mb-2">What I’m good at</h4>
+    <ul className="about-tags">
+      <li>Design-systems & UI libraries</li>
+      <li>Complex forms & data-heavy screens</li>
+      <li>Micro-frontends & modular architecture</li>
+      <li>API design & integration</li>
+    </ul>
+  </div>
+</aside>
       </div>
+          <div className="about-pills mb-4 container">
+  <span className="about-pill">⚙️ Full Stack – React, Angular, Node.js, Next.js, NestJS</span>
+  <span className="about-pill">🗃️ Databases – MongoDB, MySQL, Oracle, PostgreSQL</span>
+  <span className="about-pill">🌐 Microservices & REST APIs</span>
+  <span className="about-pill">📊 D3.js & Data Visualization</span>
+  <span className="about-pill">☁️ Cloud – AWS & GCP</span>
+  <span className="about-pill">🐳 Docker & Kubernetes</span>
+  <span className="about-pill">🔐 Secure deployments (SSL, RBAC)</span>
+  <span className="about-pill">🎨 UI/UX & Branding – Figma, Illustrator, Photoshop</span>
+  <span className="about-pill">⚡ Performance Optimization</span>
+  <span className="about-pill">🔄 CI/CD & Automation (Shell/Linux)</span>
+</div>
+
     </section>
   );
 }
