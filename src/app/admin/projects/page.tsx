@@ -183,7 +183,7 @@ export default function ProjectsAdminPage() {
     }
   };
 
-  const startEdit = (p: Project) => {
+    const startEdit = (p: Project) => {
     setEditingSlug(p.slug ?? null);
     setForm({
       slug: p.slug ?? "",
@@ -200,8 +200,12 @@ export default function ProjectsAdminPage() {
           .map((l) => `${l.label}|${l.url}`)
           .join("\n") || "",
     });
+
+    setPreviewImage(p.image ?? null); // 👈 add this
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
 
 const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
@@ -384,60 +388,43 @@ const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
                   </div>
                 </div>
 
-                {/* role + image */}
-         <div className="col-md-6">
-  <label className="form-label form-label-sm">Image</label>
-  <input
-    type="file"
-    accept="image/*"
-    onChange={handleFileUpload}
-    className="form-control form-control-sm"
-  />
-
-  {(previewImage || form.image) && (
-    <div className="mt-2">
-      <img
-        src={previewImage || form.image || ""}
-        alt="Preview"
-        width={120}
-        height="auto"
-        style={{ borderRadius: "4px", border: "1px solid #ccc" }}
-      />
-    </div>
-  )}
-
-  <div className="form-text small">
-    Upload an image (PNG/JPG). Recommended size 1200×480.
-  </div>
-</div>
-
+           {/* role + image */}
+                <div className="col-md-6">
+                  <label className="form-label form-label-sm">Role</label>
+                  <input
+                    name="role"
+                    value={form.role}
+                    onChange={onChange}
+                    className="form-control form-control-sm"
+                    placeholder="Full Stack Developer"
+                  />
+                </div>
 
                 <div className="col-md-6">
-  <label className="form-label form-label-sm">Image</label>
-  <input
-    type="file"
-    accept="image/*"
-    onChange={handleFileUpload}
-    className="form-control form-control-sm"
-  />
+                  <label className="form-label form-label-sm">Image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    className="form-control form-control-sm"
+                  />
 
-  {form.image && (
-    <div className="mt-2">
-      <img
-        src={form.image}
-        alt="Preview"
-        width={120}
-        height="auto"
-        style={{ borderRadius: "4px", border: "1px solid #ccc" }}
-      />
-    </div>
-  )}
+                  {(previewImage || form.image) && (
+                    <div className="mt-2">
+                      <img
+                        src={previewImage || form.image || ""}
+                        alt="Preview"
+                        width={120}
+                        height="auto"
+                        style={{ borderRadius: "4px", border: "1px solid #ccc" }}
+                      />
+                    </div>
+                  )}
 
-  <div className="form-text small">
-    Upload an image (PNG/JPG). Recommended size 1200×480.
-  </div>
-</div>
-
+                  <div className="form-text small">
+                    Upload an image (PNG/JPG). Recommended size 1200×480.
+                  </div>
+                </div>
 
                 {/* description */}
                 <div className="col-12">
@@ -581,18 +568,17 @@ Live Demo|https://...`}
                             >
                               Delete
                             </button>
-                            {p.slug && (
-                              <a
-                                href={`/projects?slug=${encodeURIComponent(
-                                  p.slug
-                                )}`}
-                                className="btn btn-link btn-sm p-0"
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                Learn more
-                              </a>
-                            )}
+                      {p.slug && (
+  <a
+    href={`/projects/${encodeURIComponent(p.slug)}`}
+    className="btn btn-link btn-sm p-0"
+    target="_blank"
+    rel="noreferrer"
+  >
+    Learn more
+  </a>
+)}
+
                           </td>
                         </tr>
                       ))}
