@@ -163,7 +163,7 @@ export default function Navbar() {
               <Link href="/#blog" className="nav-link nav-link-pill">
                 BLOG
               </Link>
-              <span className="coming-soon-label">COMING SOON</span>
+              {/* <span className="coming-soon-label">COMING SOON</span> */}
             </li>
 
             {/* 👇 Admin dashboard link – after BLOG, only if logged in */}
