@@ -127,7 +127,7 @@ Please find attached my resume and a tailored cover letter for the ${roleTitle} 
 
 With over ${yearsExperience} of experience designing and building scalable enterprise web applications using React, Angular, Node.js, Next.js, NestJS and cloud technologies (AWS/GCP), I am confident that I can contribute effectively to your engineering team.
 
-I am based in Chennai, Tamil Nadu, India, and am open to relocation and visa sponsorship for international roles. I would welcome the opportunity to contribute to Sangavi Appa Company and discuss how my experience aligns with your business goals.
+I am based in Chennai, Tamil Nadu, India, and am open to relocation and visa sponsorship for international roles. I would welcome the opportunity to contribute to ${companyName} and discuss how my experience aligns with your business goals.
 
 Thank you for your time and consideration.
 
